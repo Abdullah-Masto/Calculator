@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
   </head>
   <body>
     <div class="container">
-      <input type="text" />
+      <input id="text" type="text" max="15" />
       <div class="buttons">
         <div class="row">
           <button id="ac">Ac</button>
@@ -21,7 +21,7 @@
           <button class="num">7</button>
           <button class="num">8</button>
           <button class="num">9</button>
-          <button id="mul" class="op">x</button>
+          <button id="mul" class="op">*</button>
         </div>
         <div class="row">
           <button class="num">4</button>
@@ -37,7 +37,7 @@
         </div>
         <div class="row">
           <button class="num">0</button>
-          <button id="dot">.</button>
+          <button id="dote">.</button>
           <button id="equal">=</button>
         </div>
       </div>
