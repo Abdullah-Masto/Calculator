@@ -13,6 +13,7 @@
   height: 430px;
   text-align: center;
   background-color: #333;
+  border-radius: 10px;
 }
 .container input[type="text"] {
   width: 90%;
@@ -20,6 +21,7 @@
   font-size: 30px;
   margin-top: 15px;
   border: 2px solid;
+  border-radius: 5px;
 }
 .row {
   width: 90%;
