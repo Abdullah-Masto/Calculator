@@ -6,6 +6,9 @@
 :root {
   --hight: calc(100% / 7);
 }
+body {
+  background-color: aquamarine;
+}
 .container {
   margin: auto;
   margin-top: 4rem;
