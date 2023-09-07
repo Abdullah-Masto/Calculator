@@ -27,6 +27,10 @@ body {
   margin-top: 15px;
   border: 2px solid;
   border-radius: 5px;
+  cursor: unset;
+}
+#text:focus {
+  outline: none;
 }
 .row {
   width: 90%;
