@@ -12,47 +12,69 @@ nums.forEach((num) => {
 window.addEventListener("load", clear);
 ac.addEventListener("click", clear);
 del.addEventListener("click", () => {
-  text.value = text.value.substring(0, text.value.length - 1);
+  if (text.value.split(" ").length != 1) {
+    text.value = text.value.substring(0, text.value.length - 3);
+    op = "";
+  } else {
+    text.value = text.value.substring(0, text.value.length - 1);
+  }
 });
 
 let operators = document.querySelectorAll(".op");
 operators.forEach((operator) => {
-  operator.addEventListener("click", () => {
-    if (text.value == "Error") {
-      clear();
-      return;
-    }
-    let btn = event.target;
-    if (!btn.textContent == "-" && text.value == "") {
-      return;
-    } else if (
-      (btn.textContent == "-" && text.value == "") ||
-      (btn.textContent == "-" && !op == "" && text.value.split(" ")[2] == "")
-    ) {
-      appendOp(btn);
-      return;
-    }
-    if (op == "") {
-      num1 = parseFloat(text.value);
-      op = btn.textContent;
-      appendSpace();
-      appendOp(btn);
-      appendSpace();
-    } else if (!op == "" && !isNaN(parseFloat(text.value.split(" ")[2]))) {
-      num2 = parseFloat(text.value.split(" ")[2]);
-      text.value = operate();
-      if (text.value == "Error") {
-        return;
-      }
-      num1 = parseFloat(text.value);
-      op = btn.textContent;
-      appendSpace();
-      appendOp(btn);
-      appendSpace();
-      num2 = 0;
-    }
-  });
+  operator.addEventListener("click", opInput);
 });
+
+function opInput(key) {
+  if (text.value == "Error") {
+    clear();
+    return;
+  }
+  let btn = event.target;
+  if ("+-*/%".includes(key)) {
+    if (key == "+") btn = document.querySelector("#plus");
+    if (key == "-") btn = document.querySelector("#minus");
+    if (key == "*") btn = document.querySelector("#mul");
+    if (key == "/") btn = document.querySelector("#divied");
+    if (key == "%") btn = document.querySelector("#left");
+  }
+  if (!btn.textContent == "-" && text.value == "") {
+    return;
+  } else if (
+    (btn.textContent == "-" && text.value == "") ||
+    (btn.textContent == "-" && !op == "" && text.value.split(" ")[2] == "")
+  ) {
+    appendOp(btn);
+    return;
+  }
+  if (text.value == "") {
+    return;
+  }
+  if (op == "") {
+    num1 = parseFloat(text.value);
+    if (isNaN(num1)) {
+      num1 = 0;
+      return;
+    }
+    op = btn.textContent;
+    appendSpace();
+    appendOp(btn);
+    appendSpace();
+  } else if (!op == "" && !isNaN(parseFloat(text.value.split(" ")[2]))) {
+    num2 = parseFloat(text.value.split(" ")[2]);
+    text.value = operate();
+    if (text.value == "Error") {
+      return;
+    }
+    num1 = parseFloat(text.value);
+    op = btn.textContent;
+    appendSpace();
+    appendOp(btn);
+    appendSpace();
+    num2 = 0;
+  }
+}
+
 // equal
 let equal = document.querySelector("#equal");
 equal.addEventListener("click", () => {
@@ -78,6 +100,30 @@ dote.addEventListener("click", () => {
   if (op != "" && text.value.split(" ")[2].toString().includes(".")) return;
   text.value += ".";
 });
+
+// keyboard input
+
+text.addEventListener("keydown", (event) => {
+  if (event.isComposing || event.keyCode === 229) {
+    return;
+  }
+  if ("0123456789".includes(event.key)) {
+    text.value += event.key;
+  } else if ("+-*/%".includes(event.key)) {
+    opInput(event.key);
+  } else if (event.key == "Backspace") {
+    if (text.value.split(" ").length != 1) {
+      text.value = text.value.substring(0, text.value.length - 3);
+      op = "";
+    } else {
+      text.value = text.value.substring(0, text.value.length - 1);
+    }
+  } else {
+    return;
+  }
+});
+
+// end keyboard input
 
 function appendOp(op) {
   text.value += op.textContent;
